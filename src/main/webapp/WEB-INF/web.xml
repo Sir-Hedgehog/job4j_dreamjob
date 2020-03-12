@@ -4,45 +4,51 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
          http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>ru.job4j.crud.controllers.AuthFilter</filter-class>
+    </filter>
     <servlet>
-        <servlet-name>StartServlet</servlet-name>
-        <servlet-class>ru.job4j.crud.controllers.StartServlet</servlet-class>
+        <servlet-name>SigninServlet</servlet-name>
+        <servlet-class>ru.job4j.crud.controllers.SigninServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>UsersServlet</servlet-name>
         <servlet-class>ru.job4j.crud.controllers.UsersServlet</servlet-class>
-        <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>UserCreateServlet</servlet-name>
         <servlet-class>ru.job4j.crud.controllers.UserCreateServlet</servlet-class>
-        <load-on-startup>3</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>UploadServlet</servlet-name>
         <servlet-class>ru.job4j.crud.controllers.UploadServlet</servlet-class>
-        <load-on-startup>4</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>DownloadServlet</servlet-name>
         <servlet-class>ru.job4j.crud.controllers.DownloadServlet</servlet-class>
-        <load-on-startup>5</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>UserUpdateServlet</servlet-name>
         <servlet-class>ru.job4j.crud.controllers.UserUpdateServlet</servlet-class>
-        <load-on-startup>6</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>UserServlet</servlet-name>
         <servlet-class>ru.job4j.crud.controllers.UserServlet</servlet-class>
-        <load-on-startup>7</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>ru.job4j.crud.controllers.LogoutServlet</servlet-class>
     </servlet>
 
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet-mapping>
-        <servlet-name>StartServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>SigninServlet</servlet-name>
+        <url-pattern>/signin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UsersServlet</servlet-name>
@@ -67,5 +73,9 @@
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/echo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 </web-app>

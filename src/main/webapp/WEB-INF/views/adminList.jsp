@@ -27,14 +27,18 @@
         </style>
     </head>
     <body>
+        <p>
+            <a href='${pageContext.request.contextPath}/create' title='Добавление пользователя'>Добавить нового пользователя</a>
+        </p>
         <table border='1' bgcolor='#99ffcc' valign='center'>
             <c:forEach items="${clients}" var="client">
                 <tr>
                     <td align="center"><c:out value="${client.id}"/></td>
                     <td align="center"><c:out value="${client.name}"/></td>
-                    <td align="center"><c:out value="${client.login}"/></td>
                     <td align="center"><c:out value="${client.email}"/></td>
+                    <td align="center"><c:out value="${client.login}"/></td>
                     <td align="center"><c:out value="${client.createDate}"/></td>
+                    <td align="center"><c:out value="${client.role}"/></td>
                     <td align="center">
                         <img src="${pageContext.servletContext.contextPath}/download?name=${client.photoId}" width="100px" height="100px"/>
                     </td>
@@ -53,5 +57,8 @@
             </form>
             <br/>
         </c:forEach>
+        <p>
+            <a href='${pageContext.request.contextPath}/logout' title='Выход'>Выход</a>
+        </p>
     </body>
 </html>

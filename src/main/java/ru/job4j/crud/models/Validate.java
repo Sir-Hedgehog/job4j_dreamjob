@@ -4,8 +4,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 1.0
- * @since 18.02.2020
+ * @version 2.0
+ * @since 12.03.2020
  */
 
 public interface Validate {
@@ -14,4 +14,6 @@ public interface Validate {
     boolean delete(int id);
     CopyOnWriteArrayList<User> findAll();
     User findById(int id);
+    boolean checkAccount(String login, String password);
+    User getUser(String login, String password);
 }

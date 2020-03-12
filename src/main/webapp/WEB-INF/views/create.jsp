@@ -13,6 +13,7 @@
         </style>
     </head>
     <body>
+        <h3>Создание учетной записи</h3>
         <form action='${pageContext.request.contextPath}/upload' method='post' enctype='multipart/form-data'>
             <table>
                 <tr>
@@ -47,6 +48,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Введите email:</td>
+                    <td>
+                        <label>
+                            <input type='text' name='email'/>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
                     <td>Введите логин:</td>
                     <td>
                         <label>
@@ -55,10 +64,21 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Введите email:</td>
+                    <td>Введите пароль:</td>
                     <td>
                         <label>
-                            <input type='text' name='email'/>
+                            <input type='password' name='password'/>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Выберите роль:</td>
+                    <td>
+                        <label>
+                            <select name="role">
+                                <option value="администратор">администратор</option>
+                                <option value="пользователь">пользователь</option>
+                            </select>
                         </label>
                     </td>
                 </tr>

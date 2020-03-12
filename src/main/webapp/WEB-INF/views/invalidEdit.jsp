@@ -31,6 +31,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Электронная почта:</td>
+                    <td>
+                        <label>
+                            <input type='text' name='email' value='${person.email}'/>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
                     <td>Логин:</td>
                     <td>
                         <label>
@@ -39,10 +47,21 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Электронная почта:</td>
+                    <td>Пароль:</td>
                     <td>
                         <label>
-                            <input type='text' name='email' value='${person.email}'/>
+                            <input type='password' name='password'/>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Выберите роль:</td>
+                    <td>
+                        <label>
+                            <select name="role">
+                                <option value="администратор">администратор</option>
+                                <option value="пользователь">пользователь</option>
+                            </select>
                         </label>
                     </td>
                 </tr>

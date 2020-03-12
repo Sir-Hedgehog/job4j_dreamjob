@@ -18,8 +18,8 @@ import java.util.function.Consumer;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 2.0
- * @since 01.03.2020
+ * @version 3.0
+ * @since 12.03.2020
  */
 
 public class UserServlet extends HttpServlet {
@@ -35,15 +35,6 @@ public class UserServlet extends HttpServlet {
         actions.put("add", this::add);
         actions.put("update", this::update);
         actions.put("delete", this::delete);
-    }
-
-    /**
-     * Метод создания сервлета и его первого запуска
-     */
-
-    @Override
-    public void init() {
-        LOG.info("LOGGER: it's works the method init()");
     }
 
     /**
@@ -88,8 +79,10 @@ public class UserServlet extends HttpServlet {
                 new User(
                         request.getParameter("name"),
                         request.getParameter("login"),
+                        request.getParameter("password"),
                         request.getParameter("email"),
-                        request.getParameter("file")));
+                        request.getParameter("file"),
+                        request.getParameter("role")));
         LOG.info("LOGGER: transfer of params to add");
     }
 
@@ -104,8 +97,10 @@ public class UserServlet extends HttpServlet {
                 new User(
                         request.getParameter("name"),
                         request.getParameter("login"),
+                        request.getParameter("password"),
                         request.getParameter("email"),
-                        request.getParameter("file")));
+                        request.getParameter("file"),
+                        request.getParameter("role")));
         LOG.info("LOGGER: transfer of params to update");
     }
 

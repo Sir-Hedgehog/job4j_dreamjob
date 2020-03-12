@@ -4,9 +4,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,13 +17,12 @@ import javax.servlet.http.HttpServlet;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 2.0
- * @since 03.03.2020
+ * @version 3.0
+ * @since 12.03.2020
  */
 
 public class UploadServlet extends HttpServlet {
     private String nameOfFile = "";
-    private static final Logger LOG = LoggerFactory.getLogger(UserServlet.class);
 
     /**
      * Метод загружает имя выбранной картинки в форму для создания пользователя
@@ -36,8 +32,6 @@ public class UploadServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=utf-8");
         request.setAttribute("file", nameOfFile);
         request.getRequestDispatcher("/WEB-INF/views/create.jsp").forward(request, response);
     }

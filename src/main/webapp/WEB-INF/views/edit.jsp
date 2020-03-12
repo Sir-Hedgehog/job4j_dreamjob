@@ -1,5 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <jsp:useBean id="person" scope="request" type="ru.job4j.crud.models.User"/>
+<%--@elvariable id="currentRole" type="java.lang.String"--%>
 <!DOCTYPE html>
 <html lang="ru">
     <head>
@@ -28,6 +30,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Электронная почта:</td>
+                    <td>
+                        <label>
+                            <input type='text' name='email' value='${person.email}'/>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
                     <td>Логин:</td>
                     <td>
                         <label>
@@ -36,13 +46,26 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Электронная почта:</td>
+                    <td>Пароль:</td>
                     <td>
                         <label>
-                            <input type='text' name='email' value='${person.email}'/>
+                            <input type='password' name='password' value='${person.password}'/>
                         </label>
                     </td>
                 </tr>
+                <c:if test='${currentRole eq "администратор"}'>
+                    <tr>
+                        <td>Выберите роль:</td>
+                        <td>
+                            <label>
+                                <select name="role">
+                                    <option value="администратор">администратор</option>
+                                    <option value="пользователь">пользователь</option>
+                                </select>
+                            </label>
+                        </td>
+                    </tr>
+                </c:if>
             </table>
             <input type='submit' value='Сохранить'/>
         </form>

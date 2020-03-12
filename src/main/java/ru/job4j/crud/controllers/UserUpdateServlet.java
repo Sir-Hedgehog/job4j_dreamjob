@@ -3,17 +3,17 @@ package ru.job4j.crud.controllers;
 import ru.job4j.crud.models.User;
 import ru.job4j.crud.models.Validate;
 import ru.job4j.crud.models.ValidateService;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 4.0
- * @since 01.03.2020
+ * @version 5.0
+ * @since 12.03.2020
  */
 
 public class UserUpdateServlet extends HttpServlet {
@@ -27,9 +27,9 @@ public class UserUpdateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=utf-8");
+        final HttpSession session = request.getSession();
         request.setAttribute("person", collection.findById(Integer.valueOf(request.getParameter("id"))));
+        request.setAttribute("currentRole", session.getAttribute("role"));
         request.getRequestDispatcher("/WEB-INF/views/edit.jsp").forward(request, response);
         response.sendRedirect(String.format("%s/?id=%s", request.getContextPath(), request.getParameter("id")));
     }
@@ -42,15 +42,15 @@ public class UserUpdateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=utf-8");
         boolean result = collection.update(
                 Integer.valueOf(request.getParameter("id")),
                 new User(
                         request.getParameter("name"),
-                        request.getParameter("login"),
                         request.getParameter("email"),
-                        request.getParameter("file")));
+                        request.getParameter("login"),
+                        request.getParameter("password"),
+                        request.getParameter("file"),
+                        request.getParameter("role")));
         if (result) {
             request.getRequestDispatcher("/WEB-INF/views/validEdit.jsp").forward(request, response);
             response.sendRedirect(String.format("%s/", request.getContextPath()));

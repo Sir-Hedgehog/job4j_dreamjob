@@ -1,11 +1,8 @@
 package ru.job4j.crud.controllers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.job4j.crud.models.User;
 import ru.job4j.crud.models.Validate;
 import ru.job4j.crud.models.ValidateService;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,13 +11,12 @@ import java.io.IOException;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 4.0
- * @since 01.03.2020
+ * @version 5.0
+ * @since 12.03.2020
  */
 
 public class UserCreateServlet extends HttpServlet {
     private final Validate collection = ValidateService.getInstance();
-    private static final Logger LOG = LoggerFactory.getLogger(UserServlet.class);
 
     /**
      * Метод создает форму для добавления новых пользователей
@@ -30,8 +26,6 @@ public class UserCreateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=utf-8");
         request.setAttribute("file", "Фото не выбрано");
         request.getRequestDispatcher("/WEB-INF/views/create.jsp").forward(request, response);
     }
@@ -44,14 +38,13 @@ public class UserCreateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=utf-8");
         boolean result = this.collection.add(new User(
                 request.getParameter("name"),
-                request.getParameter("login"),
                 request.getParameter("email"),
-                request.getParameter("file")));
-        LOG.info("RESULT: " + result);
+                request.getParameter("login"),
+                request.getParameter("password"),
+                request.getParameter("file"),
+                request.getParameter("role")));
         if (result) {
             request.getRequestDispatcher("/WEB-INF/views/validCreate.jsp").forward(request, response);
             response.sendRedirect(String.format("%s/", request.getContextPath()));

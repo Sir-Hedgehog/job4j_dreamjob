@@ -2,25 +2,22 @@ package ru.job4j.crud.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.job4j.crud.controllers.UserServlet;
 import ru.job4j.crud.models.Validate;
 import ru.job4j.crud.models.ValidateService;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 5.0
- * @since 03.03.2020
+ * @version 6.0
+ * @since 12.03.2020
  */
 
 public class UsersServlet extends HttpServlet {
@@ -35,19 +32,17 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=utf-8");
+        HttpSession session = request.getSession();
+        LOG.info("LOG: Session - " + session.getAttribute("role"));
         request.setAttribute("clients", collection.findAll());
-        List<String> images = new ArrayList<>();
-        File folder = new File("/bin/images/");
-        if (!folder.exists()) {
-            folder.mkdirs();
+        if (session.getAttribute("role").equals("администратор")) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/adminList.jsp");
+            dispatcher.forward(request, response);
+        } else if (session.getAttribute("role").equals("пользователь")) {
+            request.setAttribute("currentId", session.getAttribute("id"));
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/userList.jsp");
+            dispatcher.forward(request, response);
         }
-        for (File name : folder.listFiles()) {
-            images.add(name.getName());
-        }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/list.jsp");
-        dispatcher.forward(request, response);
     }
 
     /**
@@ -69,9 +64,9 @@ public class UsersServlet extends HttpServlet {
 
     private void deletePicture(HttpServletRequest request) {
         boolean resultOfDelete = true;
-        for (File name : Objects.requireNonNull(new File("/bin/images/").listFiles())) {
-            if (name.getName().equals(collection.findById(Integer.valueOf(request.getParameter("id"))).getPhotoId())) {
-                resultOfDelete = name.delete();
+        for (File file : Objects.requireNonNull(new File("/bin/images/").listFiles())) {
+            if (file.getName().equals(collection.findById(Integer.valueOf(request.getParameter("id"))).getPhotoId())) {
+                resultOfDelete = file.delete();
             }
         }
         if (resultOfDelete) {

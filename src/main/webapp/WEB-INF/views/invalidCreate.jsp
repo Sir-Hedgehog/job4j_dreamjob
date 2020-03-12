@@ -21,7 +21,7 @@
                 <tr>
                     <td>Выберите фото:</td>
                     <td>
-                        <div class="checkbox">
+                        <div class='checkbox'>
                             <input type='file' name='file'/>
                         </div>
                         <input type='submit' value='Прикрепить'/>
@@ -50,6 +50,14 @@
                     <td>
                 </tr>
                 <tr>
+                    <td>Введите email:</td>
+                    <td>
+                        <label>
+                            <input type='text' name='email'/>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
                     <td>Введите логин:</td>
                     <td>
                         <label>
@@ -58,10 +66,21 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Введите email:</td>
+                    <td>Введите пароль:</td>
                     <td>
                         <label>
-                            <input type='text' name='email'/>
+                            <input type='password' name='password'/>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Выберите роль:</td>
+                    <td>
+                        <label>
+                            <select name="role">
+                                <option value="администратор">администратор</option>
+                                <option value="пользователь">пользователь</option>
+                            </select>
                         </label>
                     </td>
                 </tr>

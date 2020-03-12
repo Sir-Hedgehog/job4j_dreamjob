@@ -6,8 +6,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 2.0
- * @since 01.03.2020
+ * @version 3.0
+ * @since 12.03.2020
  */
 
 public class User {
@@ -17,8 +17,10 @@ public class User {
     private String email;
     private String photoId;
     private String createDate;
+    private String password;
+    private String role;
 
-    public User(String name, String login, String email, String photoId) {
+    public User(String name, String email, String login, String password, String photoId, String role) {
         this.id = ThreadLocalRandom.current().nextInt(1, 1000000);
         this.name = name;
         this.login = login;
@@ -26,6 +28,8 @@ public class User {
         this.photoId = photoId.substring(photoId.lastIndexOf("\\") + 1);
         Date date = new Date();
         this.createDate = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy").format(date);
+        this.password = password;
+        this.role = role;
     }
 
     public int getId() {
@@ -76,13 +80,19 @@ public class User {
         this.createDate = createDate;
     }
 
-    @Override
-    public String toString() {
-        return "User: "
-                + "id=" + id
-                + ", name='" + name + '\''
-                + ", login='" + login + '\''
-                + ", email='" + email + '\''
-                + ", createDate=" + createDate + "\n";
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
