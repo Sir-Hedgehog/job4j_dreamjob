@@ -24,6 +24,8 @@ public class UsersServlet extends HttpServlet {
     private final Validate collection = ValidateService.getInstance();
     private static final Logger LOG = LoggerFactory.getLogger(UserServlet.class);
 
+
+
     /**
      * Метод формирует список существующих пользователей
      * @param request - запрос серверу
@@ -31,9 +33,9 @@ public class UsersServlet extends HttpServlet {
      */
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        LOG.info("LOG: Session - " + session.getAttribute("role"));
+        //LOG.info("LOG: Session - " + session.getAttribute("role"));
         request.setAttribute("clients", collection.findAll());
         if (session.getAttribute("role").equals("администратор")) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/adminList.jsp");
@@ -52,7 +54,7 @@ public class UsersServlet extends HttpServlet {
      */
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         this.deletePicture(request);
         this.doGet(request, response);
     }

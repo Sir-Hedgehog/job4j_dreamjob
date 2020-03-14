@@ -23,14 +23,14 @@ public class ValidateService implements Validate {
 
     private final Store logic = DatabaseStore.getInstance();
 
-    private static ValidateService validateInstance = new ValidateService();
+    private static Validate validateInstance = new ValidateService();
 
     /**
      * Метод дает право создать единственный экзепляр класса для взаимосвязи с сервлетом
      * @return - экзепляр класса ValidateService
      */
 
-    public static ValidateService getInstance() {
+    public static Validate getInstance() {
         return validateInstance;
     }
 

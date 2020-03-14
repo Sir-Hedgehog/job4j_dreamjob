@@ -37,7 +37,7 @@ public class UserCreateServlet extends HttpServlet {
      */
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         boolean result = this.collection.add(new User(
                 request.getParameter("name"),
                 request.getParameter("email"),

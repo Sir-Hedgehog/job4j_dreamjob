@@ -19,7 +19,9 @@ public class AuthFilter implements Filter {
     private final Validate collection = ValidateService.getInstance();
 
     @Override
-    public void init(FilterConfig filterConfig) {}
+    public void init(FilterConfig filterConfig) {
+
+    }
 
     /**
      * Метод фильтрует входящие данные на этапах аутентификации и авторизации
@@ -71,7 +73,9 @@ public class AuthFilter implements Filter {
     }
 
     @Override
-    public void destroy() {}
+    public void destroy() {
+
+    }
 
     /**
      * Метод отображает данные в зависимости от того, какую роль имеет аутентифицированный пользователь
