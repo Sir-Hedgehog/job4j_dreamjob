@@ -35,7 +35,10 @@ This project contains basic tests (JUnit, Hamcrest, Mockito) for this webapp yet
 * JavaScript;
 * JQuery;
 * Ajax;
-* Apache Tomcat Server.
+* Apache Tomcat Server
+
+# Author
+Sergey Gromovoy
 
 
 
