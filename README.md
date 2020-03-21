@@ -16,9 +16,16 @@ After you pushed webapp, you can use it. Steps of work are next:
 1. Use functions for update data depending on your role;
 1. Log out. 
 
+## Testing
+This project contains basic tests (JUnit, Hamcrest, Mockito) for this webapp yet. So you can check it.
+
 ## Used technologies
 * Java;
+* Mockito;
+* JUnit;
+* Hamcrest;
 * PostgreSQL;
+* JDBC;
 * Servlet;
 * JSP;
 * JSTL;
