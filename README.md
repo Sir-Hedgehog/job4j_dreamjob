@@ -2,7 +2,6 @@
 [![codecov](https://codecov.io/gh/Sir-Hedgehog/job4j/branch/master/graph/badge.svg)](https://codecov.io/gh/Sir-Hedgehog/job4j)
 
 # Web application job4j_dreamjob
----
 This webapp realizes CRUD-system (create-read-update-delete) with using of principle of MVC (model-view-controller).
 
 ## Basic scheme of app
