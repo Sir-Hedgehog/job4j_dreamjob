@@ -28,7 +28,7 @@ After you pushed webapp, you can use it. Steps of work are next:
 * JavaScript;
 * JQuery;
 * Ajax;
-* Tomcat Server.
+* Apache Tomcat Server.
 
 
 
