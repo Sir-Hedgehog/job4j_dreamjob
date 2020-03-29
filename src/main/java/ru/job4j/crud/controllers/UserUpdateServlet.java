@@ -12,8 +12,8 @@ import java.io.IOException;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 5.0
- * @since 12.03.2020
+ * @version 6.0
+ * @since 29.03.2020
  */
 
 public class UserUpdateServlet extends HttpServlet {
@@ -46,18 +46,25 @@ public class UserUpdateServlet extends HttpServlet {
                 Integer.valueOf(request.getParameter("id")),
                 new User(
                         request.getParameter("name"),
+                        request.getParameter("country"),
+                        request.getParameter("city"),
                         request.getParameter("email"),
                         request.getParameter("login"),
                         request.getParameter("password"),
                         request.getParameter("file"),
                         request.getParameter("role")));
-        if (result) {
-            request.getRequestDispatcher("/WEB-INF/views/validEdit.jsp").forward(request, response);
-            response.sendRedirect(String.format("%s/", request.getContextPath()));
+        if (request.getParameter("name").equals("")
+                || request.getParameter("country").equals("")
+                || request.getParameter("city").equals("")
+                || request.getParameter("email").equals("")
+                || request.getParameter("login").equals("")
+                || request.getParameter("password").equals("")) {
+            request.setAttribute("success", "");
+        } else if (!result) {
+            request.setAttribute("success", "Для изменения информации введите корректные данные!");
         } else {
-            request.setAttribute("person", collection.findById(Integer.valueOf(request.getParameter("id"))));
-            request.getRequestDispatcher("/WEB-INF/views/invalidEdit.jsp").forward(request, response);
-            response.sendRedirect(String.format("%s?id=%s", request.getContextPath(), request.getParameter("id")));
+            request.setAttribute("success", "Изменения успешно внесены!");
         }
+        doGet(request, response);
     }
 }

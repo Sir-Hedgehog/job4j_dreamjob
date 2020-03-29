@@ -1,5 +1,7 @@
 package ru.job4j.crud.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.job4j.crud.models.User;
 import ru.job4j.crud.models.Validate;
 import ru.job4j.crud.models.ValidateService;
@@ -11,12 +13,13 @@ import java.io.IOException;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 1.0
- * @since 12.03.2020
+ * @version 2.0
+ * @since 29.03.2020
  */
 
 public class AuthFilter implements Filter {
     private final Validate collection = ValidateService.getInstance();
+    private static final Logger LOG = LoggerFactory.getLogger(UsersServlet.class);
 
     @Override
     public void init(FilterConfig filterConfig) {
@@ -49,16 +52,17 @@ public class AuthFilter implements Filter {
                     return;
                 } else if (session.getAttribute("login") != null && session.getAttribute("password") != null) {
                     final User user = this.collection.getUser(login, password);
-                    final String role = session.getAttribute("role").toString();
                     request.getSession().setAttribute("currentId", user.getId());
-                    this.moveToMenu(request, response, role, Integer.valueOf(user.getId()).toString());
+                    response.sendRedirect(String.format("%s/list", request.getContextPath()));
+                    return;
                 } else if (collection.checkAccount(login, password)) {
                     final User user = this.collection.getUser(login, password);
                     request.getSession().setAttribute("login", login);
                     request.getSession().setAttribute("password", password);
                     request.getSession().setAttribute("role", user.getRole());
                     request.getSession().setAttribute("currentId", user.getId());
-                    this.moveToMenu(request, response, user.getRole(), Integer.valueOf(user.getId()).toString());
+                    response.sendRedirect(String.format("%s/list", request.getContextPath()));
+                    return;
                 } else {
                     request.setAttribute("error", "Ошибка ввода логина/пароля!");
                     request.getRequestDispatcher("/WEB-INF/views/startView.jsp").forward(request, response);
@@ -75,23 +79,5 @@ public class AuthFilter implements Filter {
     @Override
     public void destroy() {
 
-    }
-
-    /**
-     * Метод отображает данные в зависимости от того, какую роль имеет аутентифицированный пользователь
-     * @param req - запрос серверу
-     * @param resp - ответ сервера
-     * @param role - роль аутентифицированного пользователя
-     * @param currentId - идентификатор аутентифицированного пользователя
-     */
-
-    private void moveToMenu(HttpServletRequest req, HttpServletResponse resp, String role, String currentId) throws ServletException, IOException {
-        req.setAttribute("clients", collection.findAll());
-        if (role.equals("администратор")) {
-            req.getRequestDispatcher("/WEB-INF/views/adminList.jsp").forward(req, resp);
-        } else if (role.equals("пользователь")) {
-            req.setAttribute("currentId", currentId);
-            req.getRequestDispatcher("/WEB-INF/views/userList.jsp").forward(req, resp);
-        }
     }
 }

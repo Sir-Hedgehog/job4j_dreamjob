@@ -9,12 +9,12 @@ import java.util.regex.Pattern;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 4.0
- * @since 12.02.2020
+ * @version 5.0
+ * @since 29.02.2020
  */
 
 public class ValidateService implements Validate {
-    private static final Pattern CHECK_OF_NAME = Pattern.compile("^(([A-Z]|[А-Я]){1}([a-z]|[а-я]){1,})$");
+    private static final Pattern CHECK_OF_NAME = Pattern.compile("(([A-Z]){1}([a-z]){1,})|(([А-Я]){1}([а-я]){1,})");
     private static final Pattern CHECK_OF_EMAIL = Pattern.compile("^((\\w{1,}[-._]{0,1}\\w{1,})+@(\\w{1,}[-._]{0,1}\\w{1,})+[.]{1}[a-z]{2,4})$");
     private static final Pattern CHECK_OF_LOGIN = Pattern.compile("^(\\w{1,}[-._]{0,1}\\w{1,})$");
     private static final Pattern CHECK_OF_PHOTO = Pattern.compile("^((\\w|\\W){1,})+.(gif|jpg|png|jpeg|svg)$");

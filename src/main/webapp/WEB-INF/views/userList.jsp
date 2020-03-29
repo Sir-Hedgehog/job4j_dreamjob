@@ -7,58 +7,168 @@
     <head>
         <title>Список пользователей</title>
         <meta charset='utf-8'/>
-        <style type='text/css'>
-                 table {
-                     float: left;
-                     margin-right: 10px;
-                 }
-                 td {
-                     border-bottom: 1px solid #99ffcc;
-                     border-right: 1px solid #99ffcc;
-                     padding: 2px 5px;
-                 }
-                 input {
-                     margin: 3px;
-                 }
-                 .submit {
-                     display: inline-block;
-                     padding: 43px 0;
-                     margin: 0;
-                 }
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style>
+            html, body {
+                height: 100%;
+                color: #ffffff;
+                font-family: Arial, Tahoma, sans-serif;
+            }
+
+            h2 {
+                margin-top: 1.2em;
+                text-transform: uppercase;
+                text-align: center;
+                border-top: .125rem solid #fff;
+                border-bottom: .125rem solid #fff;
+            }
+
+            body {
+                background: radial-gradient(at 50% 50%, #80fbfc, #0081b5);
+                display: flex;
+                flex-direction: column;
+            }
+
+            nav {
+                margin-bottom: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-decoration: none;
+            }
+
+            nav ul {
+                display: table;
+                margin: 0;
+                list-style-type: none;
+                padding: 5px 0 5px 0;
+            }
+
+            nav ul li {
+                font-size: medium;
+                display: table-cell;
+                padding: 5px 40px 5px 40px;
+            }
+
+            #out {
+                text-align: right;
+            }
+
+            nav ul li a:link, nav ul li a:visited {
+                border-bottom: none;
+                font-weight: bold;
+            }
+
+            section {
+                font-size: large;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .table-bordered {
+                width: 96%;
+                border: 3px solid #ffffff;
+                border-spacing: 0;
+                border-collapse: collapse ;
+            }
+
+            .data, th.contained {
+                background-color: #bbbebe;
+            }
+
+            table.table-bordered tr td.data, table.table-bordered tr td.submit, table.table-bordered tr td#load, th.contained {
+                vertical-align: middle;
+                text-align: center;
+            }
+
+            table.table-bordered tr th, table.table-bordered tr td.submit, table.table-bordered tr td#load {
+                border-right-style: hidden;
+                border-top-style: hidden;
+                border-bottom-style: hidden;
+            }
+
+            table.table-bordered tr th.contained {
+                border: 1px solid #ddd;
+                border-top: 3px #fff;
+            }
+
+            #picture, #big-border {
+                border-right: 3px solid #fff;
+            }
+
+            a {
+                color: #fff;
+                text-decoration: underline;
+            }
+
+            .submit {
+                color: #000;
+            }
+
+            input {
+                margin: 3px;
+            }
         </style>
     </head>
     <body>
-        <table border='1' bgcolor='#99ffcc' valign='center'>
-            <c:forEach items="${clients}" var="client">
-                <c:if test="${currentId eq client.id}">
-                    <tr>
-                        <td align="center"><c:out value="${client.id}"/></td>
-                        <td align="center"><c:out value="${client.name}"/></td>
-                        <td align="center"><c:out value="${client.email}"/></td>
-                        <td align="center"><c:out value="${client.login}"/></td>
-                        <td align="center"><c:out value="${client.createDate}"/></td>
-                        <td align="center">
-                            <img src="${pageContext.servletContext.contextPath}/download?name=${client.photoId}" width="100px" height="100px"/>
-                        </td>
-                        <td align="center"><a href="${pageContext.servletContext.contextPath}/download?name=${client.photoId}">Скачать картинку</a></td>
-                    </tr>
-                </c:if>
-            </c:forEach>
-        </table>
-        <c:forEach items="${clients}" var="client">
-            <c:if test="${currentId eq client.id}">
-                <form class='submit' action='${pageContext.request.contextPath}/edit' method='get'>
-                    <input type='hidden' name='id' value='${client.id}'/>
-                    <input type='submit' value='Редактировать'>
-                </form>
-                <form class='submit' action='${pageContext.request.contextPath}/list' method='post'>
-                    <input type='hidden' name='id' value='${client.id}'/>
-                    <input type='submit' value='Удалить'>
-                </form>
-            </c:if>
-        </c:forEach>
-        <p>
-            <a href='${pageContext.request.contextPath}/logout' title='Выход'>Выход</a>
-        </p>
+        <header>
+            <h2>Информация о пользователе</h2><br/>
+        </header>
+        <nav>
+            <ul>
+                <li id="out"><a href='${pageContext.request.contextPath}/logout' title='Выход'>Выход</a></li>
+            </ul>
+        </nav>
+        <section>
+            <table class="table table-bordered">
+                <tr>
+                    <th class="contained">ID</th>
+                    <th class="contained">Имя</th>
+                    <th class="contained">Страна</th>
+                    <th class="contained">Город</th>
+                    <th class="contained">Эл.почта</th>
+                    <th class="contained">Логин</th>
+                    <th class="contained">Дата регистрации</th>
+                    <th class="contained" id="big-border">Аватарка</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                <tr>
+                <c:forEach items="${clients}" var="client">
+                    <c:if test="${currentId eq client.id}">
+                        <tr>
+                            <td class="data"><c:out value="${client.id}"/></td>
+                            <td class="data" id="pointOfPaste"><c:out value="${client.name}"/></td>
+                            <td class="data"><c:out value="${client.country}"/></td>
+                            <td class="data"><c:out value="${client.city}"/></td>
+                            <td class="data"><c:out value="${client.email}"/></td>
+                            <td class="data"><c:out value="${client.login}"/></td>
+                            <td class="data"><c:out value="${client.createDate}"/></td>
+                            <td class="data" id="picture">
+                                <img src="${pageContext.servletContext.contextPath}/download?name=${client.photoId}" width="100px" height="100px"/>
+                            </td>
+                            <td id="load" align="center"><a href="${pageContext.servletContext.contextPath}/download?name=${client.photoId}">Скачать картинку</a></td>
+                            <td class='submit'>
+                                <form action='${pageContext.request.contextPath}/edit' method='get'>
+                                    <input type='hidden' name='id' value='${client.id}'/>
+                                    <input class="btn btn-default" type='submit' value='Редактировать'>
+                                </form>
+                            </td>
+                            <td class='submit'>
+                                <form action='${pageContext.request.contextPath}/list' method='post'>
+                                    <input type='hidden' name='id' value='${client.id}'/>
+                                    <input class="btn btn-default" type='submit' value='Удалить'>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
+            </table>
+        </section>
     </body>
 </html>

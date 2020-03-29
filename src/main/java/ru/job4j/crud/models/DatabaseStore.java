@@ -8,8 +8,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 4.0
- * @since 12.03.2020
+ * @version 5.0
+ * @since 29.03.2020
  */
 
 public class DatabaseStore implements Store {
@@ -49,15 +49,17 @@ public class DatabaseStore implements Store {
     @Override
     public boolean add(User user) {
         boolean result = false;
-        try (Connection connection = SOURCE.getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO users(id, name, email, login, password, photoId, date_of_creation, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+        try (Connection connection = SOURCE.getConnection(); PreparedStatement ps = connection.prepareStatement("INSERT INTO users(id, name, country, city, email, login, password, photoId, date_of_creation, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             ps.setInt(1, user.getId());
             ps.setString(2, user.getName());
-            ps.setString(3, user.getEmail());
-            ps.setString(4, user.getLogin());
-            ps.setString(5, user.getPassword());
-            ps.setString(6, user.getPhotoId());
-            ps.setString(7, user.getCreateDate());
-            ps.setString(8, user.getRole());
+            ps.setString(3, user.getCountry());
+            ps.setString(4, user.getCity());
+            ps.setString(5, user.getEmail());
+            ps.setString(6, user.getLogin());
+            ps.setString(7, user.getPassword());
+            ps.setString(8, user.getPhotoId());
+            ps.setString(9, user.getCreateDate());
+            ps.setString(10, user.getRole());
             ps.executeUpdate();
             result = true;
         } catch (SQLException e) {
@@ -76,14 +78,16 @@ public class DatabaseStore implements Store {
     @Override
     public boolean update(int id, User recent) {
         boolean result = false;
-        try (Connection connection = SOURCE.getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE users SET name = ?, email = ?, login = ?, password = ?, photoId = ?, role = ? WHERE id = ?")) {
+        try (Connection connection = SOURCE.getConnection(); PreparedStatement ps = connection.prepareStatement("UPDATE users SET name = ?, country = ?, city = ?, email = ?, login = ?, password = ?, photoId = ?, role = ? WHERE id = ?")) {
             ps.setString(1, recent.getName());
-            ps.setString(2, recent.getEmail());
-            ps.setString(3, recent.getLogin());
-            ps.setString(4, recent.getPassword());
-            ps.setString(5, recent.getPhotoId());
-            ps.setString(6, recent.getRole());
-            ps.setInt(7, id);
+            ps.setString(2, recent.getCountry());
+            ps.setString(3, recent.getCity());
+            ps.setString(4, recent.getEmail());
+            ps.setString(5, recent.getLogin());
+            ps.setString(6, recent.getPassword());
+            ps.setString(7, recent.getPhotoId());
+            ps.setString(8, recent.getRole());
+            ps.setInt(9, id);
             ps.executeUpdate();
             result = true;
         } catch (SQLException | IllegalStateException e) {
@@ -122,7 +126,7 @@ public class DatabaseStore implements Store {
         try (Connection connection = SOURCE.getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT * FROM users")) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getString("name"), rs.getString("email"), rs.getString("login"), rs.getString("password"), rs.getString("photoId"), rs.getString("role"));
+                User user = new User(rs.getString("name"), rs.getString("country"), rs.getString("city"), rs.getString("email"), rs.getString("login"), rs.getString("password"), rs.getString("photoId"), rs.getString("role"));
                 user.setId(rs.getInt("id"));
                 user.setCreateDate(rs.getString("date_of_creation"));
                 list.add(user);
@@ -146,7 +150,7 @@ public class DatabaseStore implements Store {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getString("name"), rs.getString("email"), rs.getString("login"), rs.getString("password"), rs.getString("photoId"), rs.getString("role"));
+                User user = new User(rs.getString("name"), rs.getString("country"), rs.getString("city"),rs.getString("email"), rs.getString("login"), rs.getString("password"), rs.getString("photoId"), rs.getString("role"));
                 user.setId(rs.getInt("id"));
                 user.setCreateDate(rs.getString("date_of_creation"));
                 if (id == user.getId()) {

@@ -1,7 +1,5 @@
 package ru.job4j.crud.controllers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.job4j.crud.models.Validate;
 import ru.job4j.crud.models.ValidateService;
 import javax.servlet.RequestDispatcher;
@@ -16,15 +14,12 @@ import java.util.Objects;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 6.0
- * @since 12.03.2020
+ * @version 7.0
+ * @since 29.03.2020
  */
 
 public class UsersServlet extends HttpServlet {
     private final Validate collection = ValidateService.getInstance();
-    private static final Logger LOG = LoggerFactory.getLogger(UserServlet.class);
-
-
 
     /**
      * Метод формирует список существующих пользователей
@@ -34,8 +29,7 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HttpSession session = request.getSession();
-        //LOG.info("LOG: Session - " + session.getAttribute("role"));
+        final HttpSession session = request.getSession();
         request.setAttribute("clients", collection.findAll());
         if (session.getAttribute("role").equals("администратор")) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/adminList.jsp");

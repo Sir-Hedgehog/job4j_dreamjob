@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import ru.job4j.crud.models.User;
 import ru.job4j.crud.models.Validate;
 import ru.job4j.crud.models.ValidateService;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,8 +17,8 @@ import java.util.function.Consumer;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 3.0
- * @since 12.03.2020
+ * @version 4.0
+ * @since 29.03.2020
  */
 
 public class UserServlet extends HttpServlet {
@@ -78,6 +77,8 @@ public class UserServlet extends HttpServlet {
         this.collection.add(
                 new User(
                         request.getParameter("name"),
+                        request.getParameter("country"),
+                        request.getParameter("city"),
                         request.getParameter("login"),
                         request.getParameter("password"),
                         request.getParameter("email"),
@@ -96,6 +97,8 @@ public class UserServlet extends HttpServlet {
                 Integer.valueOf(request.getParameter("id")),
                 new User(
                         request.getParameter("name"),
+                        request.getParameter("country"),
+                        request.getParameter("city"),
                         request.getParameter("login"),
                         request.getParameter("password"),
                         request.getParameter("email"),

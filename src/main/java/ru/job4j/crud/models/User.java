@@ -6,13 +6,15 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 3.0
- * @since 12.03.2020
+ * @version 4.0
+ * @since 29.03.2020
  */
 
 public class User {
     private int id;
     private String name;
+    private String country;
+    private String city;
     private String login;
     private String email;
     private String photoId;
@@ -20,9 +22,11 @@ public class User {
     private String password;
     private String role;
 
-    public User(String name, String email, String login, String password, String photoId, String role) {
+    public User(String name, String country, String city, String email, String login, String password, String photoId, String role) {
         this.id = ThreadLocalRandom.current().nextInt(1, 1000000);
         this.name = name;
+        this.country = country;
+        this.city = city;
         this.login = login;
         this.email = email;
         this.photoId = photoId.substring(photoId.lastIndexOf("\\") + 1);
@@ -94,5 +98,21 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
