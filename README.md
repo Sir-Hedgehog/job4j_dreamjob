@@ -12,9 +12,22 @@ This app can be pushed and used with any development environment that supports J
 
 ## Steps of work
 After you pushed webapp, you can use it. Steps of work are next:
-1. Authorization and authentication;
-1. Use functions for update data depending on your role;
-1. Log out. 
+
+I. Authentication;
+
+![Auth1](https://github.com/Sir-Hedgehog/job4j_dreamjob/blob/master/src/main/resources/screenshots/1.PNG)
+
+II. Authorization;
+
+![Auth2](https://github.com/Sir-Hedgehog/job4j_dreamjob/blob/master/src/main/resources/screenshots/2.PNG)
+
+III. Use functions for update data depending on your role;
+
+![Update1](https://github.com/Sir-Hedgehog/job4j_dreamjob/blob/master/src/main/resources/screenshots/3.PNG)
+
+![Update2](https://github.com/Sir-Hedgehog/job4j_dreamjob/blob/master/src/main/resources/screenshots/4.PNG)
+
+IV. Log out. 
 
 ## Testing
 This project contains basic tests (JUnit, Hamcrest, Mockito) for this webapp yet. So you can check it.
