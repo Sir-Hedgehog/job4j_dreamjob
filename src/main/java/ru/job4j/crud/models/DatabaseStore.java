@@ -150,7 +150,7 @@ public class DatabaseStore implements Store {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getString("name"), rs.getString("country"), rs.getString("city"),rs.getString("email"), rs.getString("login"), rs.getString("password"), rs.getString("photoId"), rs.getString("role"));
+                User user = new User(rs.getString("name"), rs.getString("country"), rs.getString("city"), rs.getString("email"), rs.getString("login"), rs.getString("password"), rs.getString("photoId"), rs.getString("role"));
                 user.setId(rs.getInt("id"));
                 user.setCreateDate(rs.getString("date_of_creation"));
                 if (id == user.getId()) {

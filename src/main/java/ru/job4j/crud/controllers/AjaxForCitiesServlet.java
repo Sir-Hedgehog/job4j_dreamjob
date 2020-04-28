@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 
 public class AjaxForCitiesServlet extends HttpServlet {
 
-
     /**
      * Метод получает данные о стране, список городов которой необходимо динамически подгрузить для клиента
      * @param request - запрос серверу
