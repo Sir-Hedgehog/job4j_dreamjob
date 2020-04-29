@@ -20,3 +20,8 @@ notifications:
       quaresma_08@mail.ru
     on_success: never # default: change
     on_failure: always # default: always
+
+
+env:
+  global:
+  - CODECOV_TOKEN="04f155eb-a543-4fb9-ae86-cd22dc0ea148"
