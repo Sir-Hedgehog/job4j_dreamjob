@@ -8,11 +8,6 @@ sudo: false
 services:
 - postgresql
 
-# после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
-# Здесь используется сторонни сервис https://codecov.io/
-after_success:
-- bash <(curl -s https://codecov.io/bash) -t token
-
 # Отправлять уведомление на почту youremail@smtp.ru (изменить на свою), если сборка упала
 notifications:
   email:
@@ -20,8 +15,3 @@ notifications:
       quaresma_08@mail.ru
     on_success: never # default: change
     on_failure: always # default: always
-
-
-env:
-  global:
-  - CODECOV_TOKEN="04f155eb-a543-4fb9-ae86-cd22dc0ea148"
