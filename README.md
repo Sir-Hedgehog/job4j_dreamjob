@@ -33,6 +33,7 @@ This project contains basic tests (JUnit, Hamcrest, Mockito) for this webapp yet
 
 ## Used technologies
 * Java;
+* Commons-fileupload;
 * Mockito;
 * JUnit;
 * Hamcrest;
