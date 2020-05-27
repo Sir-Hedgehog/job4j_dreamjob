@@ -29,7 +29,7 @@ import java.util.List;
  */
 
 public class UploadS3Servlet extends HttpServlet {
-    private String nameOfFile = "";
+    private String nameOfFile = "Фото не выбрано";
     private static final String S3_BUCKET_NAME = "cloud-cube-eu/t5ehz7b614ih/public/avatars";
     private static final Logger LOG = LoggerFactory.getLogger(UploadS3Servlet.class);
     private static final int MAX_FILE_SIZE = 1024 * 250;

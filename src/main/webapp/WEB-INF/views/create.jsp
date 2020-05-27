@@ -77,9 +77,9 @@
 
             function validateFile() {
                 let size = 0;
-                let image = $('#image').prop('files')[0];
+                let file = $('#file').prop('files')[0];
                 let formData = new FormData();
-                formData.append("image", image);
+                formData.append("file", file);
                 for (let pair of formData.entries()) {
                     if (pair[1] instanceof Blob)
                         size += pair[1].size;
