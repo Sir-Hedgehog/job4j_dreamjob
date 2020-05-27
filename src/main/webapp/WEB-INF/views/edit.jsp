@@ -56,7 +56,7 @@
                 let city = $('select#city');
                 $.ajax({
                     type: 'GET',
-                    url: 'http://localhost:8082/edit/cities',
+                    url: '/edit/cities',
                     data: 'country=' + country,
                     dataType: 'json',
                     success: (function(response) {

@@ -6,8 +6,10 @@ This webapp realizes CRUD-system (create-read-update-delete) with using of princ
 ## Basic scheme of app
 ![MVC](https://www.researchgate.net/profile/Samir_Mbarki/publication/267333148/figure/fig2/AS:295594594717708@1447486651773/Principle-of-operation-of-the-Struts-framework.png)
 
-## How to use
-This app can be pushed and used with any development environment that supports Java (IntellijIDEA, Eclipse, others) and, don't forget, server container (tomcat, glassfish, others).
+## Use cases
+1) This app can be pushed and used with any development environment that supports Java (IntellijIDEA, Eclipse, others) and, don't forget, server container (tomcat, glassfish, others).
+
+2) Follow the link [App for CRUD](https://app4crud.herokuapp.com "app4crud") and enjoy to use app!
 
 ## Steps of work
 After you pushed webapp, you can use it. Steps of work are next:
@@ -32,8 +34,10 @@ IV. Log out.
 This project contains basic tests (JUnit, Hamcrest, Mockito) for this webapp yet. So you can check it.
 
 ## Used technologies
-* Java;
+* Java Core;
 * Commons-fileupload;
+* Log4j;
+* Amazon AWS;
 * Mockito;
 * JUnit;
 * Hamcrest;
@@ -47,11 +51,14 @@ This project contains basic tests (JUnit, Hamcrest, Mockito) for this webapp yet
 * Bootstrap;
 * JavaScript;
 * JQuery;
+* SweetAlert2;
 * Ajax;
 * Apache Tomcat Server
 
 ## Author
 Sergey Gromovoy
+
+
 
 
 
