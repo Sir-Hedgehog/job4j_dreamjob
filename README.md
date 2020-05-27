@@ -51,7 +51,6 @@ This project contains basic tests (JUnit, Hamcrest, Mockito) for this webapp yet
 * Bootstrap;
 * JavaScript;
 * JQuery;
-* SweetAlert2;
 * Ajax;
 * Apache Tomcat Server
 

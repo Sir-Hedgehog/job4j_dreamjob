@@ -14,7 +14,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +23,7 @@ import java.util.List;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 1.0
+ * @version 2.0
  * @since 27.05.2020
  */
 
@@ -68,18 +67,22 @@ public class UploadS3Servlet extends HttpServlet {
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                 .build();
         try {
-            List<FileItem> items = upload.parseRequest(request);
-            for (FileItem item : items) {
-                if (!item.isFormField()) {
-                    ObjectMetadata om = new ObjectMetadata();
-                    om.setContentLength(item.getSize());
-                    nameOfFile = item.getName().substring(item.getName().lastIndexOf("\\") + 1);
-                    try {
-                        s3Client.putObject(new PutObjectRequest(S3_BUCKET_NAME, nameOfFile, item.getInputStream(), om));
-                    } catch (AmazonServiceException ase) {
-                        LOG.error("AmazonServiceException:" + ase.getMessage());
+            if (request.getContentLength() < upload.getFileSizeMax()) {
+                List<FileItem> items = upload.parseRequest(request);
+                for (FileItem item : items) {
+                    if (!item.isFormField()) {
+                        ObjectMetadata om = new ObjectMetadata();
+                        om.setContentLength(item.getSize());
+                        nameOfFile = item.getName().substring(item.getName().lastIndexOf("\\") + 1);
+                        try {
+                            s3Client.putObject(new PutObjectRequest(S3_BUCKET_NAME, nameOfFile, item.getInputStream(), om));
+                        } catch (AmazonServiceException ase) {
+                            LOG.error("AmazonServiceException:" + ase.getMessage());
+                        }
                     }
                 }
+            } else {
+                request.setAttribute("success", "Превышен максимальный лимит по размеру аватарки, объем которой должен составлять не более 256кБ! Выберите другое фото.");
             }
         } catch (FileUploadException ex) {
             LOG.error("FileUploadException: " + ex.getMessage());

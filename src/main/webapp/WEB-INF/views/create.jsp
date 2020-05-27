@@ -70,31 +70,6 @@
                     })
                 });
             }
-
-            /**
-             * Метод проверяет размер выбранной пользователем аватарки на превышение максимального лимита
-             */
-
-            function validateFile() {
-                let size = 0;
-                let file = $('#file').prop('files')[0];
-                let formData = new FormData();
-                formData.append("file", file);
-                for (let pair of formData.entries()) {
-                    if (pair[1] instanceof Blob)
-                        size += pair[1].size;
-                    else
-                        size += pair[1].length;
-                }
-                if (size > 256000) {
-                    swal.fire({
-                        icon: "warning",
-                        title: "Внимание!",
-                        text: "Превышен максимальный лимит по размеру аватарки, объем которой должен составлять не более 256кБ! Выберите другое фото.",
-                        confirmButtonColor: '#23a843',
-                    });
-                }
-            }
         </script>
         <style>
             html, body {
@@ -155,7 +130,7 @@
                 <label for="file">Выберите фото: </label>
                 <input type="file" class="form-control" id="file" name="file"/>
             </div>
-            <input id="paste" class="btn btn-default" type='submit' onclick="validateFile()" value='Прикрепить'/>
+            <input id="paste" class="btn btn-default" type='submit' value='Прикрепить'/>
         </form>
         <form action='${pageContext.request.contextPath}/create' method='post'>
             <div class="form-group">
