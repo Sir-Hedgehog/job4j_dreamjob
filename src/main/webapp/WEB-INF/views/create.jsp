@@ -11,16 +11,22 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.12/dist/sweetalert2.all.min.js" crossorigin="anonymous"></script>
         <script>
+
+            /**
+             * Метод проверяет поля на заполненность
+             */
+
             function validate() {
-                var result = false;
-                var selectedFile = $('#selectedFile').val();
-                var name = $('#name').val();
-                var country = $('#country').val();
-                var city = $('#city').val();
-                var email = $('#email').val();
-                var login = $('#login').val();
-                var password = $('#password').val();
+                let result = false;
+                let selectedFile = $('#selectedFile').val();
+                let name = $('#name').val();
+                let country = $('#country').val();
+                let city = $('#city').val();
+                let email = $('#email').val();
+                let login = $('#login').val();
+                let password = $('#password').val();
                 if (!selectedFile.includes(".jpg")) {
                     alert('Выберите фото!');
                 } else if (name === '') {
@@ -41,12 +47,16 @@
                 return result;
             }
 
+            /**
+             * Метод распознает выбранную пользователем страну и, исходя из этого выбора, формирует список городов
+             */
+
             function recognizeCountry() {
-                var country = $('select#country').val();
-                var city = $('select#city');
+                let country = $('select#country').val();
+                let city = $('select#city');
                 $.ajax({
                     type: 'GET',
-                    url: 'http://localhost:8082/users/create/cities',
+                    url: 'http://localhost:8082/create/cities',
                     data: 'country=' + country,
                     dataType: "json",
                     success: (function(response) {
@@ -59,6 +69,31 @@
                         alert(err);
                     })
                 });
+            }
+
+            /**
+             * Метод проверяет размер выбранной пользователем аватарки на превышение максимального лимита
+             */
+
+            function validateFile() {
+                let size = 0;
+                let image = $('#image').prop('files')[0];
+                let formData = new FormData();
+                formData.append("image", image);
+                for (let pair of formData.entries()) {
+                    if (pair[1] instanceof Blob)
+                        size += pair[1].size;
+                    else
+                        size += pair[1].length;
+                }
+                if (size > 256000) {
+                    swal.fire({
+                        icon: "warning",
+                        title: "Внимание!",
+                        text: "Превышен максимальный лимит по размеру аватарки, объем которой должен составлять не более 256кБ! Выберите другое фото.",
+                        confirmButtonColor: '#23a843',
+                    });
+                }
             }
         </script>
         <style>
@@ -120,7 +155,7 @@
                 <label for="file">Выберите фото: </label>
                 <input type="file" class="form-control" id="file" name="file"/>
             </div>
-            <input id="paste" class="btn btn-default" type='submit' value='Прикрепить'/>
+            <input id="paste" class="btn btn-default" type='submit' onclick="validateFile()" value='Прикрепить'/>
         </form>
         <form action='${pageContext.request.contextPath}/create' method='post'>
             <div class="form-group">

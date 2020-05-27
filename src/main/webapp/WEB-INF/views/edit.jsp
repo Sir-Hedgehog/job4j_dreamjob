@@ -13,15 +13,20 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script>
+
+            /**
+             * Метод проверяет поля на заполненность
+             */
+
             function validate() {
-                var result = false;
-                var selectedFile = $('#selectedFile').val();
-                var name = $('#name').val();
-                var country = $('#country').val();
-                var city = $('#city').val();
-                var email = $('#email').val();
-                var login = $('#login').val();
-                var password = $('#password').val();
+                let result = false;
+                let selectedFile = $('#selectedFile').val();
+                let name = $('#name').val();
+                let country = $('#country').val();
+                let city = $('#city').val();
+                let email = $('#email').val();
+                let login = $('#login').val();
+                let password = $('#password').val();
                 if (!selectedFile.includes(".jpg")) {
                     alert('Выберите фото!');
                 } else if (name === '') {
@@ -42,12 +47,16 @@
                 return result;
             }
 
+            /**
+             * Метод распознает выбранную пользователем страну и, исходя из этого выбора, формирует список городов
+             */
+
             function recognizeCountry() {
-                var country = $('select#country').val();
-                var city = $('select#city');
+                let country = $('select#country').val();
+                let city = $('select#city');
                 $.ajax({
                     type: 'GET',
-                    url: 'http://localhost:8082/users/edit/cities',
+                    url: 'http://localhost:8082/edit/cities',
                     data: 'country=' + country,
                     dataType: 'json',
                     success: (function(response) {

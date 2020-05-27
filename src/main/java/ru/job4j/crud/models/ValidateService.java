@@ -27,7 +27,7 @@ public class ValidateService implements Validate {
 
     /**
      * Метод дает право создать единственный экзепляр класса для взаимосвязи с сервлетом
-     * @return - экзепляр класса ValidateService
+     * @return - экземпляр класса ValidateService
      */
 
     public static Validate getInstance() {

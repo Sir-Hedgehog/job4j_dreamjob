@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServlet;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 3.0
- * @since 12.03.2020
+ * @version 4.0
+ * @since 27.05.2020
  */
 
 public class UploadServlet extends HttpServlet {
@@ -51,7 +51,7 @@ public class UploadServlet extends HttpServlet {
         ServletFileUpload upload = new ServletFileUpload(factory);
         try {
             List<FileItem> items = upload.parseRequest(request);
-            File folder = new File("/bin/images/");
+            File folder = new File("/bin/images");
             if (!folder.exists()) {
                 folder.mkdirs();
             }

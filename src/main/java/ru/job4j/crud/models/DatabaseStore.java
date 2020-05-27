@@ -8,8 +8,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 5.0
- * @since 29.03.2020
+ * @version 6.0
+ * @since 27.05.2020
  */
 
 public class DatabaseStore implements Store {
@@ -22,9 +22,9 @@ public class DatabaseStore implements Store {
      */
 
     public DatabaseStore() {
-        SOURCE.setUrl("jdbc:postgresql://127.0.0.1:5432/Users");
-        SOURCE.setUsername("postgres");
-        SOURCE.setPassword("password");
+        SOURCE.setUrl("jdbc:postgresql://ec2-54-246-85-151.eu-west-1.compute.amazonaws.com:5432/d7bf3lo9hlgal");
+        SOURCE.setUsername("kywjzwrlvwsgva");
+        SOURCE.setPassword("729654ed03d514cd0205fc280e0bb2373008bbc12fe5619b5fbfa1fb5f458dfb");
         SOURCE.setDriverClassName("org.postgresql.Driver");
         SOURCE.setMinIdle(5);
         SOURCE.setMaxIdle(10);
