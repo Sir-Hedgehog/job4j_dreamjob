@@ -48,6 +48,7 @@ This project contains basic tests (JUnit, Hamcrest, Mockito) for this webapp yet
 * JSTL;
 * HTML;
 * CSS;
+* Gson;
 * Apache Tomcat Server
 
 ## Author
