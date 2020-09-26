@@ -48,10 +48,6 @@ This project contains basic tests (JUnit, Hamcrest, Mockito) for this webapp yet
 * JSTL;
 * HTML;
 * CSS;
-* Bootstrap;
-* JavaScript;
-* JQuery;
-* Ajax;
 * Apache Tomcat Server
 
 ## Author
