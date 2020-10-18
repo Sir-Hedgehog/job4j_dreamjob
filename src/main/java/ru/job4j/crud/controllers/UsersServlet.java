@@ -22,8 +22,8 @@ import java.util.Objects;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 7.0
- * @since 29.03.2020
+ * @version 8.0
+ * @since 18.10.2020
  */
 
 public class UsersServlet extends HttpServlet {
@@ -96,10 +96,8 @@ public class UsersServlet extends HttpServlet {
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                 .build();
         String fileName = collection.findById(Integer.valueOf(request.getParameter("id"))).getPhotoId();
-        LOG.info("Deleting file with name = " + fileName);
         final DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(S3_BUCKET_NAME, fileName);
         s3Client.deleteObject(deleteObjectRequest);
         collection.delete(Integer.valueOf(request.getParameter("id")));
-        LOG.info("File deleted successfully.");
     }
 }

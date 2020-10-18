@@ -17,8 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.powermock.api.mockito.PowerMockito;
@@ -50,14 +49,14 @@ public class CrudTest {
         when(req.getParameter("role")).thenReturn("администратор");
         when(req.getRequestDispatcher("/WEB-INF/views/create.jsp")).thenReturn(requestDispatcher);
         new UserCreateServlet().doPost(req, resp);
-        assertThat(validate.findAll().iterator().next().getName(), is("Иван"));
-        assertThat(validate.findAll().iterator().next().getCountry(), is("Украина"));
-        assertThat(validate.findAll().iterator().next().getCity(), is("Киев"));
-        assertThat(validate.findAll().iterator().next().getEmail(), is("ivan@mail.ru"));
-        assertThat(validate.findAll().iterator().next().getLogin(), is("Vanya"));
-        assertThat(validate.findAll().iterator().next().getPassword(), is("vanya"));
-        assertThat(validate.findAll().iterator().next().getPhotoId(), is("messi.jpg"));
-        assertThat(validate.findAll().iterator().next().getRole(), is("администратор"));
+        assertEquals(validate.findAll().iterator().next().getName(), "Иван");
+        assertEquals(validate.findAll().iterator().next().getCountry(), "Украина");
+        assertEquals(validate.findAll().iterator().next().getCity(), "Киев");
+        assertEquals(validate.findAll().iterator().next().getEmail(), "ivan@mail.ru");
+        assertEquals(validate.findAll().iterator().next().getLogin(), "Vanya");
+        assertEquals(validate.findAll().iterator().next().getPassword(), "vanya");
+        assertEquals(validate.findAll().iterator().next().getPhotoId(), "messi.jpg");
+        assertEquals(validate.findAll().iterator().next().getRole(), "администратор");
     }
 
     @Test
@@ -78,7 +77,7 @@ public class CrudTest {
         when(req.getParameter("role")).thenReturn("админ");
         when(req.getRequestDispatcher("/WEB-INF/views/create.jsp")).thenReturn(requestDispatcher);
         new UserCreateServlet().doPost(req, resp);
-        assertThat(validate.findAll().isEmpty(), is(true));
+        assertTrue(validate.findAll().isEmpty());
     }
 
     @Test
@@ -113,14 +112,14 @@ public class CrudTest {
         when(session.getAttribute("currentRole")).thenReturn("пользователь");
         when(req.getRequestDispatcher("/WEB-INF/views/edit.jsp")).thenReturn(requestDispatcher);
         new UserUpdateServlet().doPost(req, resp);
-        assertThat(validate.findAll().iterator().next().getName(), is("Vasiliy"));
-        assertThat(validate.findAll().iterator().next().getCountry(), is("Россия"));
-        assertThat(validate.findAll().iterator().next().getCity(), is("Москва"));
-        assertThat(validate.findAll().iterator().next().getEmail(), is("vasya@mail.ru"));
-        assertThat(validate.findAll().iterator().next().getLogin(), is("Vasya"));
-        assertThat(validate.findAll().iterator().next().getPassword(), is("vasya"));
-        assertThat(validate.findAll().iterator().next().getPhotoId(), is("warrior.jpg"));
-        assertThat(validate.findAll().iterator().next().getRole(), is("пользователь"));
+        assertEquals(validate.findAll().iterator().next().getName(), "Vasiliy");
+        assertEquals(validate.findAll().iterator().next().getCountry(), "Россия");
+        assertEquals(validate.findAll().iterator().next().getCity(), "Москва");
+        assertEquals(validate.findAll().iterator().next().getEmail(), "vasya@mail.ru");
+        assertEquals(validate.findAll().iterator().next().getLogin(), "Vasya");
+        assertEquals(validate.findAll().iterator().next().getPassword(), "vasya");
+        assertEquals(validate.findAll().iterator().next().getPhotoId(), "warrior.jpg");
+        assertEquals(validate.findAll().iterator().next().getRole(), "пользователь");
     }
 
     @Test
@@ -155,14 +154,14 @@ public class CrudTest {
         when(session.getAttribute("currentRole")).thenReturn("администратор");
         when(req.getRequestDispatcher("/WEB-INF/views/edit.jsp")).thenReturn(requestDispatcher);
         new UserUpdateServlet().doPost(req, resp);
-        assertThat(validate.findAll().get(0).getName(), is("Ivan"));
-        assertThat(validate.findAll().get(0).getCountry(), is("Украина"));
-        assertThat(validate.findAll().get(0).getCity(), is("Киев"));
-        assertThat(validate.findAll().get(0).getEmail(), is("ivan@mail.ru"));
-        assertThat(validate.findAll().get(0).getLogin(), is("Vanya"));
-        assertThat(validate.findAll().get(0).getPassword(), is("vanya"));
-        assertThat(validate.findAll().get(0).getPhotoId(), is("warrior.jpg"));
-        assertThat(validate.findAll().get(0).getRole(), is("администратор"));
+        assertEquals(validate.findAll().get(0).getName(), "Ivan");
+        assertEquals(validate.findAll().get(0).getCountry(), "Украина");
+        assertEquals(validate.findAll().get(0).getCity(), "Киев");
+        assertEquals(validate.findAll().get(0).getEmail(), "ivan@mail.ru");
+        assertEquals(validate.findAll().get(0).getLogin(), "Vanya");
+        assertEquals(validate.findAll().get(0).getPassword(), "vanya");
+        assertEquals(validate.findAll().get(0).getPhotoId(), "warrior.jpg");
+        assertEquals(validate.findAll().get(0).getRole(), "администратор");
     }
 
     /*@Test
@@ -225,22 +224,22 @@ public class CrudTest {
         when(session.getAttribute("role")).thenReturn("администратор");
         when(req.getRequestDispatcher("/WEB-INF/views/adminList.jsp")).thenReturn(requestDispatcher);
         new UsersServlet().doGet(req, resp);
-        assertThat(validate.findAll().size(), is(2));
-        assertThat(validate.findAll().get(0).getName(), is("Ivan"));
-        assertThat(validate.findAll().get(0).getCountry(), is("Беларусь"));
-        assertThat(validate.findAll().get(0).getCity(), is("Гродно"));
-        assertThat(validate.findAll().get(0).getEmail(), is("ivan@mail.ru"));
-        assertThat(validate.findAll().get(0).getLogin(), is("Vanya"));
-        assertThat(validate.findAll().get(0).getPassword(), is("vanya"));
-        assertThat(validate.findAll().get(0).getPhotoId(), is("runner.jpg"));
-        assertThat(validate.findAll().get(0).getRole(), is("администратор"));
-        assertThat(validate.findAll().get(1).getName(), is("Vasiliy"));
-        assertThat(validate.findAll().get(1).getCountry(), is("Беларусь"));
-        assertThat(validate.findAll().get(1).getCity(), is("Минск"));
-        assertThat(validate.findAll().get(1).getEmail(), is("vasya@mail.ru"));
-        assertThat(validate.findAll().get(1).getLogin(), is("Vasya"));
-        assertThat(validate.findAll().get(1).getPassword(), is("vasya"));
-        assertThat(validate.findAll().get(1).getPhotoId(), is("warrior.jpg"));
-        assertThat(validate.findAll().get(1).getRole(), is("пользователь"));
+        assertEquals(validate.findAll().size(), 2);
+        assertEquals(validate.findAll().get(0).getName(), "Ivan");
+        assertEquals(validate.findAll().get(0).getCountry(), "Беларусь");
+        assertEquals(validate.findAll().get(0).getCity(), "Гродно");
+        assertEquals(validate.findAll().get(0).getEmail(), "ivan@mail.ru");
+        assertEquals(validate.findAll().get(0).getLogin(), "Vanya");
+        assertEquals(validate.findAll().get(0).getPassword(), "vanya");
+        assertEquals(validate.findAll().get(0).getPhotoId(), "runner.jpg");
+        assertEquals(validate.findAll().get(0).getRole(), "администратор");
+        assertEquals(validate.findAll().get(1).getName(), "Vasiliy");
+        assertEquals(validate.findAll().get(1).getCountry(), "Беларусь");
+        assertEquals(validate.findAll().get(1).getCity(), "Минск");
+        assertEquals(validate.findAll().get(1).getEmail(), "vasya@mail.ru");
+        assertEquals(validate.findAll().get(1).getLogin(), "Vasya");
+        assertEquals(validate.findAll().get(1).getPassword(), "vasya");
+        assertEquals(validate.findAll().get(1).getPhotoId(), "warrior.jpg");
+        assertEquals(validate.findAll().get(1).getRole(), "пользователь");
     }
 }
