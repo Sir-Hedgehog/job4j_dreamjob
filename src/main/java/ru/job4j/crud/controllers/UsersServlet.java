@@ -1,5 +1,13 @@
 package ru.job4j.crud.controllers;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.job4j.crud.models.Validate;
 import ru.job4j.crud.models.ValidateService;
 import javax.servlet.RequestDispatcher;
@@ -19,6 +27,12 @@ import java.util.Objects;
  */
 
 public class UsersServlet extends HttpServlet {
+    private static final String AMAZON_ACCESS_KEY = "AKIA37SVVXBHTX27GO6M";
+    private static final String AMAZON_SECRET_KEY = "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";
+    private static final String REGION = "eu-west-1";
+    private static final String S3_BUCKET_NAME = "cloud-cube-eu/t5ehz7b614ih/public/avatars";
+    private static final Logger LOG = LoggerFactory.getLogger(UsersServlet.class);
+
     private final Validate collection = ValidateService.getInstance();
 
     /**
@@ -49,7 +63,7 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        this.deletePicture(request);
+        this.deleteS3Picture(request);
         this.doGet(request, response);
     }
 
@@ -68,5 +82,24 @@ public class UsersServlet extends HttpServlet {
         if (resultOfDelete) {
             collection.delete(Integer.valueOf(request.getParameter("id")));
         }
+    }
+
+    /**
+     * Реализация удаления из хранилища CloudCube
+     * @param request - запрос серверу
+     */
+
+    private void deleteS3Picture(HttpServletRequest request) {
+        BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
+        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                .withRegion(Regions.fromName(REGION))
+                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
+                .build();
+        String fileName = collection.findById(Integer.valueOf(request.getParameter("id"))).getPhotoId();
+        LOG.info("Deleting file with name = " + fileName);
+        final DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(S3_BUCKET_NAME, fileName);
+        s3Client.deleteObject(deleteObjectRequest);
+        collection.delete(Integer.valueOf(request.getParameter("id")));
+        LOG.info("File deleted successfully.");
     }
 }
