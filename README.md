@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Sir-Hedgehog/job4j_dreamjob.svg?branch=master)](https://travis-ci.org/Sir-Hedgehog/job4j_dreamjob)
+[![Build Status](https://travis-ci.com/Sir-Hedgehog/job4j_dreamjob.svg?branch=master)](https://travis-ci.org/Sir-Hedgehog/job4j_dreamjob)
 
 # Web application job4j_dreamjob
 This webapp realizes CRUD-system (create-read-update-delete) with using of principle of MVC (model-view-controller).
